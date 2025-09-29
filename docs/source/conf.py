@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path("..", "..", "src").resolve()))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "jixlib.CHANGEME"
+project = "jitxlib.deploytest1"
 copyright = "2025, JITX Inc"  # noqa: A001
 author = "JITX Inc"
 version = "0.1"

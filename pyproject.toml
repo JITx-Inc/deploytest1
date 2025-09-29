@@ -10,12 +10,11 @@ requires = [
 build-backend = "hatchling.build"
 
 [project]
-name = "jitxlib-CHANGEME"
+name = "jitxlib-deploytest1"
 dynamic = ["version"]
 dependencies = [
   "jitx>=0.1.dev,<0.2.0",
   "jitxstd>=0.1.dev,<0.2.0",
-  "jitxlib-parts>=0.1.dev,<0.2.0",
   "ruff==0.11.2",
   "pyright>=1.1.398,<1.2.0",
 ]
@@ -25,12 +24,6 @@ requires-python = ">=3.12"
 packages = ["src/jitxlib"]
 
 [tool]
-
-[tool.hatch.envs.default.env-vars]
-PIP_INDEX_URL = "https://pypi.jitx.com/jitx/main/+simple"
-
-[tool.hatch.envs.hatch-test.env-vars]
-PIP_INDEX_URL = "https://pypi.jitx.com/jitx/main/+simple"
 
 # tests: run "hatch test --cover"
 [tool.hatch.envs.test]

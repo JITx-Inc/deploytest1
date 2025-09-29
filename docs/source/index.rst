@@ -1,11 +1,11 @@
-.. jitxlib.CHANGEME documentation master file
+.. jitxlib.deploytest1 documentation master file
 
-jitxlib.CHANGEME documentation
-==============================
+jitxlib.deploytest1 documentation
+=================================
 
 
 .. toctree::
    :maxdepth: 3
    :caption: Contents:
 
-   jitxlib/CHANGEME/modules
+   jitxlib/deploytest1/modules

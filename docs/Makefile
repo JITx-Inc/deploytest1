@@ -5,11 +5,11 @@ SHELL := /bin/bash
 
 # You can set these variables from the command line, and also
 # from the environment for the first three.
-PIPOPTS       ?= --extra-index-url "https://pypi.jitx.com/jitx/main/+simple"
+PIPOPTS       ?=
 SPHINXOPTS    ?= --jobs 1 --write-all --fresh-env --warning-file build.out
 SPHINXAPIDOC  ?= sphinx-apidoc
 SPHINXBUILD   ?= sphinx-build
-PROJNAME      := CHANGEME
+PROJNAME      := deploytest1
 SOURCEDIR     := source
 BUILDDIR      := build
 PYSRCDIR      := ../src/jitxlib
