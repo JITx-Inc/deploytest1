@@ -1,0 +1,16 @@
+- add secrets to github repo:
+    - `GITHUBAPP_PRIVATE_KEY`
+    - `HATCH_INDEX_AUTH`
+    - `SLACK_TOKEN`
+- add variables to github repo:
+    - `GITHUBAPP_ID=1235107`
+    - `HATCH_INDEX_REPO=https://pypi.jitx.com/jitx/main`
+    - `HATCH_INDEX_USER=jitx`
+- search files for CHANGEME and update to your new library name
+- hatch build
+- hatch test --cover
+- hatch fmt --check
+- hatch run types:check
+- cd docs ; make ; cd ..
+- git tag v0.0.1
+- add this library to jitx-doc/.github/workflows for doc publishing
