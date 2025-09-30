@@ -54,6 +54,7 @@ jobs:
         uses: ./pybuild-action  # from checkout above
         with:
            python-version: "${{ matrix.python-version }}"
+           extra-index-url: "https://pypi.jitx.com/jitx/main/+simple"
            run-publish: true
            hatch-index-user: ${{ vars.HATCH_INDEX_USER }}
            hatch-index-auth: ${{ secrets.HATCH_INDEX_AUTH }}
