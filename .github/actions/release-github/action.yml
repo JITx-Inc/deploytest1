@@ -1,0 +1,43 @@
+
+# This action will create a Release to GitHub Releases from an existing build artifact
+
+### NOTE: All bash scripts inlined here because external scripts dont appear to
+###       be available at runtime when you manually check out an action repo and
+###       then call the action using a local path location, such as when a public
+###       repo needs to use an action stored in a private action repo with auth.
+###       It seems that the local path action invocation wraps the action inside a
+###       container without providing access to other scripts in the action repo.
+
+name: 'jitx-python-github-release'
+description: 'Release to GitHub Releases'
+#inputs:
+#  run-publish:
+#    description: 'Whether to publish the results. (true/false)'
+#    required: true
+#    default: false
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Debug Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+
+    - name: Debug list artifact files
+      shell: bash
+      run: |
+          ls -l pybuild-work/dist/*.whl || true
+          ls -l pybuild-work/dist/version || true
+          ls -l pybuild-work/dist/*.tar.gz || true
+
+
+    #- name: GitHub Release
+    #  if: github.ref_type == 'tag' && github.ref_name ...
+    #  uses: softprops/action-gh-release@v2
+    #  with:
+    #    files: |
+    #      pybuild-work/dist/*.whl
+    #      pybuild-work/dist/version
+    #      pybuild-work/dist/*.tar.gz

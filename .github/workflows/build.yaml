@@ -61,3 +61,6 @@ jobs:
            notify-slack: true
            slack-token: ${{ secrets.SLACK_TOKEN }}
            github-user: ${{ github.actor }}
+
+      - name: Release GitHub Releases
+        uses: ./pybuild-work/.github/actions/release-github
