@@ -40,5 +40,12 @@ runs:
       with:
         files: |
           pybuild-work/dist/*.whl
-          pybuild-work/dist/version
           pybuild-work/dist/*.tar.gz
+
+    - name: Publish to Test PyPI
+      # only run if this is a tag event, the tag starts with 'v', and does not include '.dev'
+      if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v') && (! contains(github.ref_name, '.dev'))
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        repository-url: https://test.pypi.org/legacy/
+        packages-dir: pybuild-work/dist/
