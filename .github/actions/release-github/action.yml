@@ -33,20 +33,12 @@ runs:
           ls -l pybuild-work/dist/version || true
           ls -l pybuild-work/dist/*.tar.gz || true
 
-    - name: tag check not dev
-      if: github.ref_type == 'tag' && (! contains(github.ref_name, '.dev'))
-      shell: bash
-      env:
-        TAG: ${{ github.ref_name }}
-      run: |
-          echo "tag is \"${TAG}\""
-
-
-    #- name: GitHub Release
-    #  if: github.ref_type == 'tag' && github.ref_name ...
-    #  uses: softprops/action-gh-release@v2
-    #  with:
-    #    files: |
-    #      pybuild-work/dist/*.whl
-    #      pybuild-work/dist/version
-    #      pybuild-work/dist/*.tar.gz
+    - name: GitHub Release
+      # only run if this is a tag event, the tag starts with 'v', and does not include '.dev'
+      if: github.ref_type == 'tag' && startsWith(github.ref_name, 'v') && (! contains(github.ref_name, '.dev'))
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          pybuild-work/dist/*.whl
+          pybuild-work/dist/version
+          pybuild-work/dist/*.tar.gz
