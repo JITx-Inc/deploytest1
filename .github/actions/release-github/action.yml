@@ -33,6 +33,14 @@ runs:
           ls -l pybuild-work/dist/version || true
           ls -l pybuild-work/dist/*.tar.gz || true
 
+    - name: tag check not dev
+      if: github.ref_type == 'tag' && (! contains(github.ref_name, '.dev'))
+      shell: bash
+      env:
+        TAG: ${{ github.ref_name }}
+      run: |
+          echo "tag is \"${TAG}\""
+
 
     #- name: GitHub Release
     #  if: github.ref_type == 'tag' && github.ref_name ...
