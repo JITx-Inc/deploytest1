@@ -1,10 +1,26 @@
 
 name: Publish to TestPyPI
 
+# on:
+#   release:
+#     types:
+#       - released
 on:
-  release:
-    types:
-      - released
+  workflow_dispatch:
+    inputs:
+      releasetag:
+        description: 'Release Tag'
+        required: true
+        type: string
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
 
 jobs:
   publish:
@@ -36,7 +52,8 @@ jobs:
         uses: robinraju/release-downloader@v1
         with:
           repository: ${{ github.repository }}
-          tag: ${{ github.ref_name }}
+          #tag: ${{ github.ref_name }}
+          tag: ${{ inputs.releasetag }}
           fileName: '*'
           out-file-path: dist/
           extract: false
