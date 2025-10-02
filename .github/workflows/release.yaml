@@ -1,26 +1,26 @@
 
-name: Publish to TestPyPI
+name: Publish to PyPI
 
 on:
   workflow_dispatch:
     inputs:
       dest:
-        description: 'Destination (test.pypi.org or pypi.org)'
+        description: 'Destination (testpypi or pypi)'
         required: true
-        default: 'test.pypi.org'
+        default: 'testpypi'
         type: choice
         options:
-          - test.pypi.org
-          - pypi.org
+          - testpypi
+          - pypi
 
 jobs:
   publish:
-    name: Publish to TestPyPI
+    name: Publish ${{ github.ref_name }} to ${{ inputs.dest=='pypi' && '' || 'Test ' }}PyPI
     runs-on: ubuntu-24.04
 
     environment:
-      name: testpypi
-      url: https://test.pypi.org/p/jitxlib-deploytest1
+      name: ${{ inputs.dest }}
+      url: https://${{ inputs.dest=='pypi' && 'pypi.org' || 'test.pypi.org' }}/p/jitxlib-${{ github.repository }}
 
     permissions:
       contents: read   # for reading content from a repo
@@ -28,11 +28,12 @@ jobs:
 
     steps:
 
-      - name: Debug Dump GitHub context
+      - name: Ensure valid tag
+        if: (! github.ref_type == 'tag') || (! startsWith(github.ref_name, 'v')) || contains(github.ref_name, '.dev')
         shell: bash
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
+        run: |
+          echo "Invalid tag for publishing: ${{ github.ref_name }}"
+          exit -1
 
       - name: Fetch Release
         uses: robinraju/release-downloader@v1
@@ -48,9 +49,9 @@ jobs:
         run: |
             ls -la dist/ || true
 
-      - name: Publish to Test PyPI
+      - name: Publish to ${{ inputs.dest=='pypi' && '' || 'Test ' }}PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository-url: "https://${{ inputs.dest }}/legacy/"
+          repository-url: "https://${{ inputs.dest=='pypi' && 'pypi.org' || 'test.pypi.org' }}/legacy/"
           packages-dir: dist/
 
