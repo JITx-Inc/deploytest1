@@ -39,7 +39,6 @@ jobs:
           tag: ${{ github.ref_name }}
           fileName: '*'
           out-file-path: dist/
-          extract: true
 
       - name: Debug list artifact files
         shell: bash
