@@ -20,7 +20,7 @@ jobs:
 
     environment:
       name: ${{ inputs.dest }}
-      url: https://${{ inputs.dest=='pypi' && 'pypi.org' || 'test.pypi.org' }}/p/jitxlib-${{ github.repository }}
+      url: https://${{ inputs.dest=='pypi' && 'pypi.org' || 'test.pypi.org' }}/p/jitxlib-deploytest1
 
     permissions:
       contents: read   # for reading content from a repo
