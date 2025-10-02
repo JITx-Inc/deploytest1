@@ -3,6 +3,15 @@ name: Publish to TestPyPI
 
 on:
   workflow_dispatch:
+    inputs:
+      dest:
+        description: 'Destination (test.pypi.org or pypi.org)'
+        required: true
+        default: 'test.pypi.org'
+        type: choice
+        options:
+          - test.pypi.org
+          - pypi.org
 
 jobs:
   publish:
@@ -25,11 +34,6 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
-      - name: Debug list artifact files
-        shell: bash
-        run: |
-            ls -la || true
-
       - name: Fetch Release
         uses: robinraju/release-downloader@v1
         with:
@@ -47,6 +51,6 @@ jobs:
       - name: Publish to Test PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
-          repository-url: https://test.pypi.org/legacy/
+          repository-url: "https://${{ inputs.dest }}/legacy/"
           packages-dir: dist/
 
